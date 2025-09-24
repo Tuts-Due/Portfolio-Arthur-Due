@@ -39,9 +39,9 @@ const About = () => {
 
   const education = [
     {
-      title: 'Bacharelado em Ciência da Computação',
-      institution: 'Universidade Federal',
-      period: '2015 - 2019',
+      title: 'Técnologo em Análise e Desenvolvimento de Sistemas',
+      institution: 'Universidade de Ciências da Saúde de Alagoas (UNCISAL)',
+      period: '2015 - 2017',
       description: 'Formação sólida em algoritmos, estruturas de dados e engenharia de software.'
     },
     {
