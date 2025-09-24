@@ -45,7 +45,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             <span className="block text-white mb-2">Olá, eu sou</span>
-            <span className="gradient-text animate-glow">Seu Nome</span>
+            <span className="gradient-text animate-glow">Arthur Dué</span>
           </h1>
 
           <div className="h-16 mb-8">

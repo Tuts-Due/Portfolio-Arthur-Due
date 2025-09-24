@@ -10,7 +10,7 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
 
   const { repositories, loading, error, refetch, mapToPortfolioProjects } = useGitHub(savedUsername);
 
-  // Carregar configurações salvas
+  // Carregar configurações salvas-
   useEffect(() => {
     const saved = localStorage.getItem('github-config');
     if (saved) {

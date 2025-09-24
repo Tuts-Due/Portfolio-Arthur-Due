@@ -6,49 +6,51 @@ const About = () => {
   const [activeTab, setActiveTab] = useState('sobre');
 
   const skills = [
-    { name: 'React', level: 90 },
-    { name: 'JavaScript', level: 95 },
-    { name: 'TypeScript', level: 85 },
-    { name: 'Node.js', level: 88 },
-    { name: 'Python', level: 82 },
-    { name: 'CSS/Tailwind', level: 92 },
-    { name: 'Git/GitHub', level: 90 },
-    { name: 'MongoDB', level: 78 }
+    { name: 'Java', level: 95 },
+    { name: 'Kotlin', level: 90 },
+    { name: 'Spring Boot', level: 88 },
+    { name: 'Microsserviços / REST APIs', level: 90 },
+    { name: 'React', level: 85 },
+    { name: 'React-Native', level: 85 },
+    { name: 'SQL (MySQL/PostgreSQL)', level: 85 },
+    { name: 'Git/GitHub/Bitbucket', level: 90 },
+    { name: 'Firebase', level: 78 }
   ];
 
   const experiences = [
     {
-      title: 'Desenvolvedor Full Stack Senior',
-      company: 'Tech Solutions Inc.',
-      period: '2022 - Presente',
-      description: 'Desenvolvimento de aplicações web complexas usando React, Node.js e MongoDB. Liderança de equipe de 5 desenvolvedores.'
-    },
-    {
-      title: 'Desenvolvedor Frontend',
-      company: 'Digital Agency',
-      period: '2020 - 2022',
-      description: 'Criação de interfaces responsivas e interativas para clientes de diversos segmentos. Foco em performance e UX.'
-    },
-    {
-      title: 'Desenvolvedor Junior',
-      company: 'StartUp Tech',
-      period: '2019 - 2020',
-      description: 'Desenvolvimento de features para plataforma SaaS. Aprendizado acelerado em tecnologias modernas.'
-    }
+    title: 'Desenvolvedor Java Android',
+    company: 'Capgemini Brasil',
+    period: '08/2022 - 08/2023',
+    description: 'Atuação no desenvolvimento de aplicações Web e Mobile. Utilização de Java no backend, Angular no frontend e Android nativo para mobile, seguindo boas práticas de arquitetura e metodologias ágeis.'
+  },
+  {
+    title: 'Atendente de Call Center',
+    company: 'AlmavivA do Brasil',
+    period: '10/2018 - 05/2022',
+    description: 'Atendimento ao cliente, com foco em soluções técnicas, financeiras e tratativas de cancelamento.'
+  },
+  {
+    title: 'Estagiário em TI',
+    company: 'Lacen/AL',
+    period: '02/2017 - 05/2017',
+    description: 'Auxílio em atividades de suporte técnico e manutenção de sistemas internos.'
+  }
   ];
 
   const education = [
+
+    {
+      title: 'Pós-Graduação em Projetos de Aplicativos Móveis Multiplataforma',
+      institution: 'Descomplica - Faculdade Digital',
+      period: '2024 - 2025',
+      description: 'Formação avançada em desenvolvimento de aplicativos móveis utilizando tecnologias modernas multiplataforma.'
+    },
     {
       title: 'Técnologo em Análise e Desenvolvimento de Sistemas',
       institution: 'Universidade de Ciências da Saúde de Alagoas (UNCISAL)',
       period: '2015 - 2017',
       description: 'Formação sólida em algoritmos, estruturas de dados e engenharia de software.'
-    },
-    {
-      title: 'Curso Técnico em Informática',
-      institution: 'ETEC',
-      period: '2013 - 2015',
-      description: 'Primeiro contato com programação e desenvolvimento web.'
     }
   ];
 
@@ -105,14 +107,13 @@ const About = () => {
                       Desenvolvedor Apaixonado por Tecnologia
                     </h3>
                     <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                      Sou um desenvolvedor full stack com mais de 5 anos de experiência 
-                      criando soluções digitais inovadoras. Minha paixão é transformar 
-                      ideias complexas em aplicações simples e elegantes.
+                      Sou um desenvolvedor apaixonado por tecnologia com experiência em arquitetura e desenvolvimento de microsserviços em Java e Kotlin, 
+                      além de sólida atuação em React, Flutter e Android nativo. Trabalhei em projetos que integraram backend, frontend e mobile, 
+                      sempre aplicando boas práticas como SOLID, APIs REST, testes automatizados e metodologias ágeis.
                     </p>
                     <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                      Especializado em React, Node.js e tecnologias modernas, sempre 
-                      busco me manter atualizado com as últimas tendências do mercado 
-                      para entregar o melhor resultado possível.
+                     Busco constantemente evoluir, seja em desafios técnicos de alta complexidade, 
+                     seja em soluções inovadoras que entreguem valor real para as pessoas e empresas.
                     </p>
                     <div className="flex flex-wrap gap-2 mb-6">
                       {['Criativo', 'Dedicado', 'Inovador', 'Colaborativo'].map((trait) => (

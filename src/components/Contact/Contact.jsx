@@ -225,7 +225,7 @@ const Contact = () => {
                   <Mail className="w-6 h-6 text-cyan-400" />
                   <div>
                     <h4 className="font-semibold text-gray-800 dark:text-white">E-mail</h4>
-                    <p className="text-gray-600 dark:text-gray-300">seu.email@exemplo.com</p>
+                    <p className="text-gray-600 dark:text-gray-300">duetech.al@gmail.com</p>
                   </div>
                 </div>
                 
@@ -234,7 +234,7 @@ const Contact = () => {
                   <Phone className="w-6 h-6 text-purple-400" />
                   <div>
                     <h4 className="font-semibold text-gray-800 dark:text-white">WhatsApp</h4>
-                    <p className="text-gray-600 dark:text-gray-300">+55 (11) 99999-9999</p>
+                    <p className="text-gray-600 dark:text-gray-300">+55 (82) 98775-8569</p>
                   </div>
                 </div>
               </div>

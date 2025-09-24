@@ -7,19 +7,19 @@ const Footer = () => {
   const socialLinks = [
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/seu-perfil',
+      url: 'https://www.linkedin.com/in/arthur-du%C3%A9-59561a123/',
       icon: Linkedin,
       color: '#0077B5'
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/seu-usuario',
+      url: 'https://github.com/Tuts-Due',
       icon: Github,
       color: '#333'
     },
     {
       name: 'WhatsApp',
-      url: 'https://wa.me/5511999999999',
+      url: 'https://wa.me/5582987758569',
       icon: MessageCircle,
       color: '#25D366'
     }
@@ -119,26 +119,26 @@ const Footer = () => {
                 <div>
                   <p className="text-cyan-300 text-sm">E-mail:</p>
                   <a 
-                    href="mailto:seu.email@exemplo.com"
+                    href="mailto:duetech.al@gmail.com"
                     className="text-white hover:text-cyan-300 transition-colors duration-300"
                   >
-                    seu.email@exemplo.com
+                    duetech.al@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-cyan-300 text-sm">WhatsApp:</p>
                   <a 
-                    href="https://wa.me/5511999999999"
+                    href="https://wa.me/558287758569"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white hover:text-cyan-300 transition-colors duration-300"
                   >
-                    +55 (11) 99999-9999
+                    +55 (82) 98775-8569
                   </a>
                 </div>
                 <div>
                   <p className="text-cyan-300 text-sm">Localização:</p>
-                  <p className="text-white">São Paulo, SP - Brasil</p>
+                  <p className="text-white">Maceió, AL - Brasil</p>
                 </div>
               </div>
             </div>
