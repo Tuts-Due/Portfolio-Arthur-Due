@@ -1,178 +1,94 @@
-import { useState } from 'react';
-import { Mail, Phone, User, Building, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { CONTACT_REASONS } from '../../utils/constants';
+import { useState } from "react";
+import {
+  Mail,
+  Phone,
+  User,
+  Building,
+  MessageSquare,
+  Send,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    personType: '',
-    email: '',
-    phone: '',
-    reason: '',
-    description: ''
-  });
-  
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+function InputField({
+  label,
+  name,
+  type = "text",
+  icon: Icon,
+  placeholder,
+  required = true,
+  as = "input",
+  value,
+  onChange,
+  error,
+}) {
+  const Component = as;
 
-  const personTypes = [
-    { value: 'fisica', label: 'Pessoa Física' },
-    { value: 'juridica', label: 'Pessoa Jurídica' }
-  ];
-
-  const contactReasons = [
-    { value: 'contratar', label: 'Contratar Serviços' },
-    { value: 'reuniao', label: 'Marcar Reunião' },
-    { value: 'duvidas', label: 'Dúvidas/Sugestões' }
-  ];
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Nome é obrigatório';
-    }
-
-    if (!formData.personType) {
-      newErrors.personType = 'Tipo de pessoa é obrigatório';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'E-mail é obrigatório';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'E-mail inválido';
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Número para contato é obrigatório';
-    }
-
-    if (!formData.reason) {
-      newErrors.reason = 'Motivo do contato é obrigatório';
-    }
-
-    if (!formData.description.trim()) {
-      newErrors.description = 'Descrição é obrigatória';
-    } else if (formData.description.trim().length < 10) {
-      newErrors.description = 'Descrição deve ter pelo menos 10 caracteres';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      // Simular envio do formulário
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Aqui você integraria com um serviço de email como EmailJS
-      console.log('Dados do formulário:', formData);
-      
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        personType: '',
-        email: '',
-        phone: '',
-        reason: '',
-        description: ''
-      });
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const InputField = ({ 
-    label, 
-    name, 
-    type = 'text', 
-    icon: Icon, 
-    placeholder, 
-    required = true,
-    as = 'input'
-  }) => {
-    const Component = as;
-    
-    return (
-      <div className="space-y-2">
-        <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-          <Icon className="w-4 h-4 text-cyan-400" />
-          <span>{label}</span>
-          {required && <span className="text-red-500">*</span>}
-        </label>
-        <Component
-          type={type}
-          name={name}
-          value={formData[name]}
-          onChange={handleInputChange}
-          placeholder={placeholder}
-          className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300
-                     bg-white dark:bg-gray-800 text-gray-800 dark:text-white
-                     focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
-            errors[name] 
-              ? 'border-red-500 focus:border-red-500' 
-              : 'border-purple-500/30 focus:border-cyan-400 hover:border-purple-500/50'
-          }`}
-          rows={as === 'textarea' ? 4 : undefined}
-        />
-        {errors[name] && (
-          <p className="text-red-500 text-sm flex items-center space-x-1">
-            <AlertCircle className="w-4 h-4" />
-            <span>{errors[name]}</span>
-          </p>
-        )}
-      </div>
-    );
-  };
-
-  const SelectField = ({ label, name, options, icon: Icon, placeholder, required = true }) => (
+  return (
     <div className="space-y-2">
       <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
         <Icon className="w-4 h-4 text-cyan-400" />
         <span>{label}</span>
         {required && <span className="text-red-500">*</span>}
       </label>
+
+      <Component
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300
+          bg-white dark:bg-gray-800 text-gray-800 dark:text-white
+          focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
+            error
+              ? "border-red-500 focus:border-red-500"
+              : "border-purple-500/30 focus:border-cyan-400 hover:border-purple-500/50"
+          }`}
+        rows={as === "textarea" ? 4 : undefined}
+      />
+
+      {error && (
+        <p className="text-red-500 text-sm flex items-center space-x-1">
+          <AlertCircle className="w-4 h-4" />
+          <span>{error}</span>
+        </p>
+      )}
+    </div>
+  );
+}
+
+function SelectField({
+  label,
+  name,
+  options,
+  icon: Icon,
+  placeholder,
+  required = true,
+  value,
+  onChange,
+  error,
+}) {
+  return (
+    <div className="space-y-2">
+      <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+        <Icon className="w-4 h-4 text-cyan-400" />
+        <span>{label}</span>
+        {required && <span className="text-red-500">*</span>}
+      </label>
+
       <select
         name={name}
-        value={formData[name]}
-        onChange={handleInputChange}
+        value={value}
+        onChange={onChange}
         className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300
-                   bg-white dark:bg-gray-800 text-gray-800 dark:text-white
-                   focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
-          errors[name] 
-            ? 'border-red-500 focus:border-red-500' 
-            : 'border-purple-500/30 focus:border-cyan-400 hover:border-purple-500/50'
-        }`}
+          bg-white dark:bg-gray-800 text-gray-800 dark:text-white
+          focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
+            error
+              ? "border-red-500 focus:border-red-500"
+              : "border-purple-500/30 focus:border-cyan-400 hover:border-purple-500/50"
+          }`}
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
@@ -181,14 +97,111 @@ const Contact = () => {
           </option>
         ))}
       </select>
-      {errors[name] && (
+
+      {error && (
         <p className="text-red-500 text-sm flex items-center space-x-1">
           <AlertCircle className="w-4 h-4" />
-          <span>{errors[name]}</span>
+          <span>{error}</span>
         </p>
       )}
     </div>
   );
+}
+
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    personType: "",
+    email: "",
+    phone: "",
+    reason: "",
+    description: "",
+    website: "", // honeypot
+  });
+
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const personTypes = [
+    { value: "fisica", label: "Pessoa Física" },
+    { value: "juridica", label: "Pessoa Jurídica" },
+  ];
+
+  const contactReasons = [
+    { value: "contratar", label: "Contratar Serviços" },
+    { value: "reuniao", label: "Marcar Reunião" },
+    { value: "duvidas", label: "Dúvidas/Sugestões" },
+  ];
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = "Nome é obrigatório";
+    if (!formData.personType) newErrors.personType = "Tipo de pessoa é obrigatório";
+
+    if (!formData.email.trim()) newErrors.email = "E-mail é obrigatório";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = "E-mail inválido";
+
+    if (!formData.phone.trim()) newErrors.phone = "Número para contato é obrigatório";
+    if (!formData.reason) newErrors.reason = "Motivo do contato é obrigatório";
+
+    if (!formData.description.trim()) newErrors.description = "Descrição é obrigatória";
+    else if (formData.description.trim().length < 10)
+      newErrors.description = "Descrição deve ter pelo menos 10 caracteres";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const resp = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await resp.json().catch(() => ({}));
+
+      if (!resp.ok) {
+        throw new Error(data?.message || "Erro ao enviar");
+      }
+
+      setSubmitStatus("success");
+      setFormData({
+        name: "",
+        personType: "",
+        email: "",
+        phone: "",
+        reason: "",
+        description: "",
+        website: "",
+      });
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contato" className="py-20 bg-gray-50 dark:bg-gray-900">
@@ -198,8 +211,7 @@ const Contact = () => {
             Entre em Contato
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Tem um projeto em mente? Vamos conversar sobre como posso ajudar 
-            a transformar suas ideias em realidade.
+            Tem um projeto em mente? Vamos conversar sobre como posso ajudar a transformar suas ideias em realidade.
           </p>
         </div>
 
@@ -212,25 +224,21 @@ const Contact = () => {
                   Vamos trabalhar juntos!
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                  Estou sempre aberto a discutir novos projetos, oportunidades 
-                  criativas ou parcerias. Preencha o formulário ao lado e entrarei 
-                  em contato o mais breve possível.
+                  Estou aberto a novos projetos, oportunidades criativas e parcerias.
+                  Preencha o formulário ao lado e eu retorno o mais breve possível.
                 </p>
               </div>
 
-              {/* Contact Methods */}
               <div className="space-y-4">
-                <div className="flex items-center space-x-4 p-4 bg-white dark:bg-gray-800 
-                              rounded-lg border-2 border-purple-500/20">
+                <div className="flex items-center space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
                   <Mail className="w-6 h-6 text-cyan-400" />
                   <div>
                     <h4 className="font-semibold text-gray-800 dark:text-white">E-mail</h4>
                     <p className="text-gray-600 dark:text-gray-300">duetech.al@gmail.com</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center space-x-4 p-4 bg-white dark:bg-gray-800 
-                              rounded-lg border-2 border-purple-500/20">
+
+                <div className="flex items-center space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
                   <Phone className="w-6 h-6 text-purple-400" />
                   <div>
                     <h4 className="font-semibold text-gray-800 dark:text-white">WhatsApp</h4>
@@ -239,7 +247,6 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Response Time */}
               <div className="p-4 bg-cyan-400/10 border border-cyan-400/30 rounded-lg">
                 <h4 className="font-semibold text-cyan-400 mb-2">Tempo de Resposta</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -251,67 +258,89 @@ const Contact = () => {
             {/* Contact Form */}
             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border-2 border-purple-500/20">
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name */}
+                {/* Honeypot escondido */}
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                />
+
                 <InputField
                   label="Nome Completo"
                   name="name"
                   icon={User}
                   placeholder="Digite seu nome completo"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  error={errors.name}
                 />
 
-                {/* Person Type */}
                 <SelectField
                   label="Tipo de Pessoa"
                   name="personType"
                   icon={Building}
                   placeholder="Selecione o tipo"
                   options={personTypes}
+                  value={formData.personType}
+                  onChange={handleInputChange}
+                  error={errors.personType}
                 />
 
-                {/* Email */}
                 <InputField
                   label="E-mail"
                   name="email"
                   type="email"
                   icon={Mail}
                   placeholder="seu.email@exemplo.com"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  error={errors.email}
                 />
 
-                {/* Phone */}
                 <InputField
                   label="Número para Contato"
                   name="phone"
                   type="tel"
                   icon={Phone}
                   placeholder="(11) 99999-9999"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  error={errors.phone}
                 />
 
-                {/* Reason */}
                 <SelectField
                   label="Motivo do Contato"
                   name="reason"
                   icon={MessageSquare}
                   placeholder="Selecione o motivo"
                   options={contactReasons}
+                  value={formData.reason}
+                  onChange={handleInputChange}
+                  error={errors.reason}
                 />
 
-                {/* Description */}
                 <InputField
                   label="Descrição"
                   name="description"
                   icon={MessageSquare}
-                  placeholder="Descreva detalhadamente seu projeto ou necessidade..."
+                  placeholder="Descreva seu projeto ou necessidade..."
                   as="textarea"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  error={errors.description}
                 />
 
-                {/* Submit Button */}
                 <Button
                   type="submit"
                   disabled={isSubmitting}
                   className={`w-full py-3 font-semibold text-lg transition-all duration-300 ${
                     isSubmitting
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'btn-portfolio text-black hover:scale-105'
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "btn-portfolio text-black hover:scale-105"
                   }`}
                 >
                   {isSubmitting ? (
@@ -327,20 +356,17 @@ const Contact = () => {
                   )}
                 </Button>
 
-                {/* Status Messages */}
-                {submitStatus === 'success' && (
-                  <div className="flex items-center space-x-2 p-4 bg-green-500/10 
-                                border border-green-500/30 rounded-lg text-green-600">
+                {submitStatus === "success" && (
+                  <div className="flex items-center space-x-2 p-4 bg-green-500/10 border border-green-500/30 rounded-lg text-green-600">
                     <CheckCircle className="w-5 h-5" />
-                    <span>Mensagem enviada com sucesso! Entrarei em contato em breve.</span>
+                    <span>Mensagem enviada! Vou te responder em breve.</span>
                   </div>
                 )}
 
-                {submitStatus === 'error' && (
-                  <div className="flex items-center space-x-2 p-4 bg-red-500/10 
-                                border border-red-500/30 rounded-lg text-red-600">
+                {submitStatus === "error" && (
+                  <div className="flex items-center space-x-2 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-600">
                     <AlertCircle className="w-5 h-5" />
-                    <span>Erro ao enviar mensagem. Tente novamente.</span>
+                    <span>Erro ao enviar. Tente novamente.</span>
                   </div>
                 )}
               </form>
@@ -353,4 +379,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
