@@ -18,7 +18,14 @@ const About = () => {
   ];
 
   const experiences = [
-    {
+  {
+      title: 'Desenvolvedor Mobile React Native',
+      company: 'Level 33',
+      period: '10/2025 - 01/2026',
+      description:
+        'Atuação no desenvolvimento e manutenção de aplicações mobile com React Native e Expo. Criação e ajuste de telas e fluxos, consumo e integração com APIs REST, formulários e validações com React Hook Form + Zod, melhorias de UX/UI, correção de bugs e ajustes de navegação. Colaboração em time ágil (sprints), seguindo boas práticas e versionamento com Git (GitHub).'
+  },
+  {
     title: 'Desenvolvedor Java Android',
     company: 'Capgemini Brasil',
     period: '08/2022 - 08/2023',
