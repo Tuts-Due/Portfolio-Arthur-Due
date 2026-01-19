@@ -1,97 +1,179 @@
-import { useState } from 'react';
-import { Award, Calendar, Building } from 'lucide-react';
-import ExpandableCard from '../ExpandableCard/ExpandableCard';
-import Modal from '../Modal/Modal';
-import TiltCard from '../TiltCard/TiltCard';
+import { useMemo, useState } from "react";
+import { Award, Calendar, Building } from "lucide-react";
+import ExpandableCard from "../ExpandableCard/ExpandableCard";
+import Modal from "../Modal/Modal";
+import TiltCard from "../TiltCard/TiltCard";
 
 const Certificates = () => {
   const [modalContent, setModalContent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Dados de exemplo dos certificados
+  const [activeTab, setActiveTab] = useState("todos");
+
+  const pdfUrl = (fileName) => encodeURI(`/certificados/${fileName}`);
+
+  // ✅ seus certificados reais (baseado nos PDFs que estão em public/certificados)
+  // category: "certificado" | "certificacao"
   const certificates = [
     {
       id: 1,
-      title: 'React Developer Certification',
-      institution: 'Meta',
-      date: '2023',
-      description: 'Certificação completa em desenvolvimento React, cobrindo hooks, context API, performance optimization e melhores práticas.',
-      image: '/api/placeholder/400/300',
-      tags: ['React', 'JavaScript', 'Frontend', 'Hooks', 'Context API'],
-      links: [
-        { label: 'Ver Certificado', url: '#' },
-        { label: 'Verificar Autenticidade', url: '#' }
-      ],
-      details: 'Este certificado foi obtido após completar um curso intensivo de 40 horas sobre desenvolvimento React avançado, incluindo projetos práticos e avaliações rigorosas.'
+      category: "certificado",
+      title: "C# Básico",
+      institution: "Udemy",
+      date: "2023",
+      hours: 7.5,
+      description: "Fundamentos de C#, lógica de programação e algoritmos para base sólida.",
+      image: null,
+      tags: ["C#", "Lógica", "Algoritmos", "Fundamentos"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("CSharp Básico.pdf") }],
+      details: "Conteúdo voltado para iniciar no C# e reforçar lógica/algoritmos com exercícios.",
     },
     {
       id: 2,
-      title: 'AWS Cloud Practitioner',
-      institution: 'Amazon Web Services',
-      date: '2023',
-      description: 'Certificação fundamental em serviços de nuvem AWS, cobrindo conceitos básicos de cloud computing, segurança e arquitetura.',
-      image: '/api/placeholder/400/300',
-      tags: ['AWS', 'Cloud', 'DevOps', 'Infrastructure'],
+      category: "certificado",
+      title: "Desenvolvimento de Aplicativos Android usando Java",
+      institution: "Udemy",
+      date: "2022",
+      hours: 30.5,
+      description: "Base de Android nativo com Java, construindo apps e entendendo o ecossistema.",
+      image: null,
+      tags: ["Android", "Java", "Mobile"],
       links: [
-        { label: 'Ver Certificado', url: '#' },
-        { label: 'Badge Digital', url: '#' }
+        {
+          label: "Abrir certificado (PDF)",
+          url: pdfUrl("Desenvolvimento de Aplicativos Android Usando Java.pdf"),
+        },
       ],
-      details: 'Certificação que valida conhecimentos fundamentais sobre a plataforma AWS, incluindo serviços principais, modelos de preços e melhores práticas de segurança.'
+      details: "Curso focado em fundamentos do Android, estrutura de projetos e práticas comuns em apps.",
     },
     {
       id: 3,
-      title: 'Node.js Application Development',
-      institution: 'OpenJS Foundation',
-      date: '2022',
-      description: 'Certificação em desenvolvimento de aplicações Node.js, incluindo APIs REST, autenticação, banco de dados e deploy.',
-      image: '/api/placeholder/400/300',
-      tags: ['Node.js', 'JavaScript', 'Backend', 'API', 'MongoDB'],
+      category: "certificado",
+      title: "Desenvolvimento de Aplicativos Android usando Kotlin",
+      institution: "Udemy",
+      date: "2022",
+      hours: 40.5,
+      description: "Android nativo com Kotlin, reforçando boas práticas e desenvolvimento mobile moderno.",
+      image: null,
+      tags: ["Android", "Kotlin", "Mobile"],
       links: [
-        { label: 'Ver Certificado', url: '#' }
+        {
+          label: "Abrir certificado (PDF)",
+          url: pdfUrl("Desenvolvimento de Aplicativos Android Usando Kotlin.pdf"),
+        },
       ],
-      details: 'Programa abrangente cobrindo desenvolvimento backend com Node.js, desde conceitos básicos até aplicações complexas em produção.'
+      details: "Kotlin aplicado ao Android com foco em produtividade e organização do código.",
     },
     {
       id: 4,
-      title: 'UI/UX Design Fundamentals',
-      institution: 'Google',
-      date: '2022',
-      description: 'Certificação em fundamentos de design de interface e experiência do usuário, incluindo prototipagem e testes de usabilidade.',
-      image: '/api/placeholder/400/300',
-      tags: ['UI/UX', 'Design', 'Figma', 'Prototipagem', 'Usabilidade'],
-      links: [
-        { label: 'Ver Certificado', url: '#' },
-        { label: 'Portfolio de Design', url: '#' }
-      ],
-      details: 'Curso completo sobre princípios de design, pesquisa de usuário, criação de wireframes e protótipos, e testes de usabilidade.'
+      category: "certificado",
+      title: "Docker",
+      institution: "Udemy",
+      date: "2023",
+      hours: 5.5,
+      description: "Conceitos essenciais de containers, imagens, volumes e uso prático no dia a dia.",
+      image: null,
+      tags: ["Docker", "DevOps", "Containers"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("Docker.pdf") }],
+      details: "Aplicação prática de Docker para ambientes de desenvolvimento e deploy.",
     },
     {
       id: 5,
-      title: 'Python for Data Science',
-      institution: 'IBM',
-      date: '2021',
-      description: 'Certificação em Python para ciência de dados, cobrindo análise de dados, visualização e machine learning básico.',
-      image: '/api/placeholder/400/300',
-      tags: ['Python', 'Data Science', 'Pandas', 'NumPy', 'Matplotlib'],
-      links: [
-        { label: 'Ver Certificado', url: '#' }
-      ],
-      details: 'Programa focado no uso de Python para análise e visualização de dados, incluindo bibliotecas essenciais e projetos práticos.'
+      category: "certificado",
+      title: "Gestão Ágil com Scrum",
+      institution: "Udemy",
+      date: "2022",
+      hours: 6.5,
+      description: "Fundamentos de agilidade e Scrum: cerimônias, papéis, artefatos e fluxo.",
+      image: null,
+      tags: ["Agile", "Scrum", "Gestão"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("Gestão Ágil com Scrum.pdf") }],
+      details: "Visão prática do Scrum aplicado a times e projetos de software.",
     },
     {
       id: 6,
-      title: 'Agile Project Management',
-      institution: 'Scrum Alliance',
-      date: '2021',
-      description: 'Certificação em metodologias ágeis e gerenciamento de projetos, incluindo Scrum, Kanban e práticas de desenvolvimento ágil.',
-      image: '/api/placeholder/400/300',
-      tags: ['Agile', 'Scrum', 'Kanban', 'Project Management'],
-      links: [
-        { label: 'Ver Certificado', url: '#' }
-      ],
-      details: 'Certificação que valida conhecimentos em metodologias ágeis, facilitação de cerimônias Scrum e liderança de equipes de desenvolvimento.'
-    }
+      category: "certificado",
+      title: "Git",
+      institution: "Udemy",
+      date: "2023",
+      hours: 7.0,
+      description: "Versionamento com Git: commits, branches, merges e boas práticas no fluxo.",
+      image: null,
+      tags: ["Git", "Versionamento", "Workflow"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("Git.pdf") }],
+      details: "Fluxo completo do básico ao avançado para colaboração em repositórios.",
+    },
+    {
+      id: 7,
+      category: "certificado",
+      title: "Postman",
+      institution: "Udemy",
+      date: "2023",
+      hours: 1.0,
+      description: "Testes de API e coleções no Postman: requests, variáveis e ambientes.",
+      image: null,
+      tags: ["API", "Postman", "HTTP"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("Postman.pdf") }],
+      details: "Uso do Postman para validação rápida de endpoints e organização de rotinas.",
+    },
+    {
+      id: 8,
+      category: "certificado",
+      title: "Spring Boot Expert",
+      institution: "Udemy",
+      date: "2023",
+      hours: 15.5,
+      description: "Backend com Spring Boot: APIs REST, JPA e tópicos de segurança/autenticação.",
+      image: null,
+      tags: ["Spring Boot", "Java", "API", "Backend"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("SpringBoot Expert.pdf") }],
+      details: "Conteúdo voltado para construção de APIs e boas práticas com Spring.",
+    },
+    {
+      id: 9,
+      category: "certificado",
+      title: "UML",
+      institution: "Udemy",
+      date: "2022",
+      hours: 5.0,
+      description: "Modelagem e análise: diagramas UML para apoiar design e entendimento do sistema.",
+      image: null,
+      tags: ["UML", "Modelagem", "Análise"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("UML.pdf") }],
+      details: "Base para documentação e comunicação técnica entre times.",
+    },
+    {
+      id: 10,
+      category: "certificado",
+      title: "Figma",
+      institution: "Udemy",
+      date: "2022",
+      hours: 13.5,
+      description: "Design de interfaces no Figma: componentes, prototipação e organização.",
+      image: null,
+      tags: ["Figma", "UI", "UX", "Design"],
+      links: [{ label: "Abrir certificado (PDF)", url: pdfUrl("Figma.pdf") }],
+      details: "Do zero ao uso mais profissional do Figma para interfaces e protótipos.",
+    },
   ];
+
+  const tabs = [
+    { key: "todos", label: "Todos" },
+    { key: "certificado", label: "Certificados" },
+    { key: "certificacao", label: "Certificações" },
+  ];
+
+  const filteredCertificates = useMemo(() => {
+    if (activeTab === "todos") return certificates;
+    return certificates.filter((c) => c.category === activeTab);
+  }, [activeTab, certificates]);
+
+  const stats = useMemo(() => {
+    const total = certificates.length;
+    const institutions = new Set(certificates.map((c) => c.institution)).size;
+    const totalHours = certificates.reduce((acc, c) => acc + (c.hours ?? 0), 0);
+    return { total, institutions, totalHours };
+  }, [certificates]);
 
   const openModal = (certificate) => {
     setModalContent(certificate);
@@ -111,8 +193,7 @@ const Certificates = () => {
             Certificados e Certificações
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Minhas principais certificações e cursos que demonstram meu 
-            comprometimento com o aprendizado contínuo e excelência técnica.
+            Cursos e certificados que reforçam minha base técnica e aprendizado contínuo.
           </p>
         </div>
 
@@ -121,31 +202,50 @@ const Certificates = () => {
           <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
             <Award className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
             <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
-              {certificates.length}+
+              {stats.total}+
             </h3>
-            <p className="text-gray-600 dark:text-gray-300">Certificações</p>
+            <p className="text-gray-600 dark:text-gray-300">Itens</p>
           </div>
+
           <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
             <Building className="w-12 h-12 text-purple-400 mx-auto mb-3" />
             <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
-              5+
+              {stats.institutions}+
             </h3>
             <p className="text-gray-600 dark:text-gray-300">Instituições</p>
           </div>
+
           <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
             <Calendar className="w-12 h-12 text-yellow-400 mx-auto mb-3" />
             <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
-              200+
+              {stats.totalHours > 0 ? `${Math.round(stats.totalHours)}+` : "—"}
             </h3>
             <p className="text-gray-600 dark:text-gray-300">Horas de Estudo</p>
           </div>
         </div>
 
+        {/* Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          {tabs.map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setActiveTab(t.key)}
+              className={`px-5 py-2 rounded-full border transition ${
+                activeTab === t.key
+                  ? "bg-gradient-to-r from-cyan-400 to-purple-500 text-black border-transparent"
+                  : "border-white/10 text-gray-300 hover:text-white hover:border-white/20"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
         {/* Certificates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certificates.map((certificate) => (
-            <TiltCard 
-              key={certificate.id} 
+          {filteredCertificates.map((certificate) => (
+            <TiltCard
+              key={certificate.id}
               className="group"
               tiltOptions={{ maxTilt: 6, scale: 1.02, glare: true }}
             >
@@ -158,7 +258,7 @@ const Certificates = () => {
                 type="certificate"
                 onOpenModal={() => openModal(certificate)}
               />
-              
+
               {/* Certificate Info */}
               <div className="mt-3 px-2">
                 <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
@@ -183,20 +283,15 @@ const Certificates = () => {
           </p>
           <div className="inline-flex items-center space-x-2 text-cyan-400">
             <Award className="w-5 h-5" />
-            <span className="font-semibold">Próxima meta: Kubernetes Administrator (CKA)</span>
+            <span className="font-semibold">Próxima meta: AWS Certified Cloud Practitioner (CLF-C02)</span>
           </div>
         </div>
       </div>
 
       {/* Modal */}
-      <Modal 
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        content={modalContent}
-      />
+      <Modal isOpen={isModalOpen} onClose={closeModal} content={modalContent} />
     </section>
   );
 };
 
 export default Certificates;
-

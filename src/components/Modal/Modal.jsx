@@ -1,54 +1,46 @@
-import { useEffect } from 'react';
-import { X, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useEffect } from "react";
+import { X, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 
 const Modal = ({ isOpen, onClose, content }) => {
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    // Cleanup on unmount
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+      if (e.key === "Escape") onClose();
     };
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-    };
+    if (isOpen) document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
   if (!isOpen || !content) return null;
 
   const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    if (e.target === e.currentTarget) onClose();
   };
 
+  const pdfLink =
+    content?.links?.find((l) => (l?.url || "").toLowerCase().endsWith(".pdf"))?.url || null;
+
+  const primaryLink = content?.links?.[0]?.url;
+
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl max-h-[90vh] w-full 
-                    overflow-y-auto border-2 border-purple-500/30 relative animate-in 
-                    fade-in-0 zoom-in-95 duration-300">
-        
+      <div
+        className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl max-h-[90vh] w-full 
+                   overflow-y-auto border-2 border-purple-500/30 relative animate-in 
+                   fade-in-0 zoom-in-95 duration-300"
+      >
         {/* Close Button */}
         <Button
           onClick={onClose}
@@ -63,20 +55,22 @@ const Modal = ({ isOpen, onClose, content }) => {
         {/* Modal Content */}
         <div className="p-8">
           {/* Title */}
-          <h2 className="text-3xl font-bold gradient-text mb-6 pr-12">
-            {content.title}
-          </h2>
+          <h2 className="text-3xl font-bold gradient-text mb-6 pr-12">{content.title}</h2>
 
-          {/* Image */}
-          {content.image && (
+          {/* ✅ Preview (imagem ou PDF) */}
+          {content.image ? (
             <div className="mb-6 rounded-lg overflow-hidden">
-              <img 
-                src={content.image} 
+              <img
+                src={content.image}
                 alt={content.title}
                 className="w-full max-h-96 object-contain bg-gray-100 dark:bg-gray-700"
               />
             </div>
-          )}
+          ) : pdfLink ? (
+            <div className="mb-6">
+              <PdfThumbnail url={pdfLink} heightClassName="h-96" />
+            </div>
+          ) : null}
 
           {/* Description */}
           <div className="mb-6">
@@ -112,7 +106,7 @@ const Modal = ({ isOpen, onClose, content }) => {
                 {content.links.map((link, index) => (
                   <Button
                     key={index}
-                    onClick={() => window.open(link.url, '_blank')}
+                    onClick={() => window.open(link.url, "_blank")}
                     className="btn-portfolio text-black font-semibold"
                   >
                     <ExternalLink className="w-4 h-4 mr-2" />
@@ -128,9 +122,7 @@ const Modal = ({ isOpen, onClose, content }) => {
             <div className="mb-6">
               <h3 className="text-xl font-semibold text-cyan-400 mb-3">Detalhes Adicionais</h3>
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  {content.details}
-                </p>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{content.details}</p>
               </div>
             </div>
           )}
@@ -144,13 +136,14 @@ const Modal = ({ isOpen, onClose, content }) => {
             >
               Fechar
             </Button>
-            {content.links && content.links.length > 0 && (
+
+            {primaryLink && (
               <Button
-                onClick={() => window.open(content.links[0].url, '_blank')}
+                onClick={() => window.open(primaryLink, "_blank")}
                 className="btn-portfolio text-black font-semibold"
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
-                Ver Projeto
+                Ver Certificado
               </Button>
             )}
           </div>
@@ -161,4 +154,3 @@ const Modal = ({ isOpen, onClose, content }) => {
 };
 
 export default Modal;
-

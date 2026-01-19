@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Code, ExternalLink, Github, Globe, Database, Smartphone } from 'lucide-react';
+import { Code, ExternalLink, Github, Globe, Database, Smartphone, Gamepad2} from 'lucide-react';
 import ExpandableCard from '../ExpandableCard/ExpandableCard';
 import Modal from '../Modal/Modal';
 import TiltCard from '../TiltCard/TiltCard';
@@ -32,7 +32,9 @@ const Projects = () => {
     'Tailwind': { icon: '💨', color: '#06B6D4', symbol: 'TW' },
     'Express': { icon: '🚀', color: '#000000', symbol: 'Express' },
     'Next.js': { icon: '▲', color: '#000000', symbol: 'Next' },
-    'Flutter': { icon: '🦋', color: '#02569B', symbol: 'Flutter' }
+    'Flutter': { icon: '🦋', color: '#02569B', symbol: 'Flutter' },
+    'Unity': { icon: '🎮', color: '#FFFFFF', symbol: 'Unity' },
+    'C#': { icon: '🟦', color: '#512BD4', symbol: 'C#' },
   };
 
   // Dados de exemplo dos projetos
@@ -126,21 +128,52 @@ const Projects = () => {
       details: 'Sistema distribuído com API Gateway, service discovery, circuit breakers e monitoramento completo.',
       status: 'Concluído',
       year: '2023'
+    },
+    {
+      id: 7,
+      title: 'Roguelike Survivors (Prototype)',
+      category: 'games',
+      description: 'Protótipo estilo Vampire Survivors com progressão, inimigos escaláveis e sistema de upgrades.',
+      image: '/api/placeholder/600/400',
+      technologies: ['Unity', 'C#'],
+      links: [
+        { label: 'Ver Demo', url: '#' },
+        { label: 'Código GitHub', url: '#' }
+      ],
+      details: 'Projeto de estudo focado em gameplay loop, spawn system, pooling, upgrades e balancing.',
+      status: 'Em Desenvolvimento',
+      year: '2024'
     }
   ];
 
   const categories = [
-    { id: 'todos', label: 'Todos', icon: Code },
-    { id: 'frontend', label: 'Frontend', icon: Globe },
-    { id: 'backend', label: 'Backend', icon: Database },
-    { id: 'fullstack', label: 'Full Stack', icon: Code },
-    { id: 'mobile', label: 'Mobile', icon: Smartphone }
-  ];
+  { id: 'todos', label: 'Todos', icon: Code },
+  { id: 'frontend', label: 'Frontend', icon: Globe },
+  { id: 'backend', label: 'Backend', icon: Database },
+  { id: 'fullstack', label: 'Full Stack', icon: Code },
+  { id: 'mobile', label: 'Mobile', icon: Smartphone },
+  { id: 'games', label: 'Games', icon: Gamepad2 },
+];
+
 
   // Função para atualizar projetos do GitHub
-  const handleGitHubProjectsUpdate = (newGithubProjects) => {
-    setGithubProjects(newGithubProjects);
+  const handleGitHubProjectsUpdate = (repos) => {
+    const mapped = repos.map((repo) => ({
+      id: `gh-${repo.id}`,
+      title: repo.name,
+      category: "backend", // ou inferir por linguagem
+      description: repo.description || "Sem descrição",
+      image: "/api/placeholder/600/400",
+      technologies: repo.language ? [repo.language] : [],
+      links: [{ label: "GitHub", url: repo.html_url }],
+      details: repo.description || "Repositório importado do GitHub.",
+      status: "GitHub",
+      year: repo.updated_at ? new Date(repo.updated_at).getFullYear().toString() : "",
+    }));
+
+    setGithubProjects(mapped);
   };
+
 
   // Combinar projetos estáticos e do GitHub
   const allProjects = [...projects, ...githubProjects];
