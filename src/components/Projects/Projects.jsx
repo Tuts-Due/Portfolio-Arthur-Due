@@ -1,12 +1,5 @@
 import { useCallback, useState } from "react";
-import {
-  Code,
-  ExternalLink,
-  Globe,
-  Database,
-  Smartphone,
-  Gamepad2,
-} from "lucide-react";
+import { Code, ExternalLink, Globe, Database, Smartphone, Gamepad2 } from "lucide-react";
 import Modal from "../Modal/Modal";
 import TiltCard from "../TiltCard/TiltCard";
 import GitHubIntegration from "../GitHubIntegration/GitHubIntegration";
@@ -45,105 +38,52 @@ const Projects = () => {
     Java: { icon: "☕", color: "#E11D48", symbol: "Java" },
   };
 
-  // Dados de exemplo dos projetos (fictícios)
+  // ✅ Projetos de EXEMPLO (layout) — não são projetos reais
   const projects = [
     {
       id: 1,
       title: "E-commerce Platform",
       category: "fullstack",
       description:
-        "Plataforma completa de e-commerce com painel administrativo, sistema de pagamentos e gestão de estoque.",
+        "Exemplo de card para definir layout. Projeto real em breve.",
       image: "/api/placeholder/600/400",
       technologies: ["React", "Node.js", "MongoDB", "Express", "Redux", "Tailwind"],
-      links: [{ label: "Ver Demo", url: "#" }, { label: "Código GitHub", url: "#" }],
+      links: [], // ⛔ sem links pra não abrir outra guia com "#"
       details:
-        "Sistema completo de e-commerce desenvolvido com arquitetura moderna, incluindo autenticação JWT, integração com gateway de pagamento, sistema de avaliações e painel administrativo completo.",
-      status: "Concluído",
+        "Este é um exemplo (placeholder) para demonstrar a aparência do portfólio. Vou substituir por projetos reais em breve.",
+      status: "Exemplo (layout)",
       year: "2023",
+      isPlaceholder: true,
     },
     {
       id: 2,
       title: "Task Management App",
       category: "frontend",
       description:
-        "Aplicativo de gerenciamento de tarefas com interface intuitiva, drag & drop e colaboração em tempo real.",
+        "Exemplo de card para definir layout. Projeto real em breve.",
       image: "/api/placeholder/600/400",
       technologies: ["React", "TypeScript", "Firebase", "Tailwind", "Redux"],
-      links: [{ label: "Ver Demo", url: "#" }, { label: "Código GitHub", url: "#" }],
+      links: [],
       details:
-        "Aplicação de produtividade com funcionalidades avançadas como boards Kanban, colaboração em tempo real, notificações push e sincronização offline.",
-      status: "Concluído",
+        "Este é um exemplo (placeholder) para demonstrar a aparência do portfólio. Vou substituir por projetos reais em breve.",
+      status: "Exemplo (layout)",
       year: "2023",
+      isPlaceholder: true,
     },
     {
       id: 3,
       title: "API RESTful - Blog System",
       category: "backend",
       description:
-        "API robusta para sistema de blog com autenticação, CRUD completo e sistema de comentários.",
+        "Exemplo de card para definir layout. Projeto real em breve.",
       image: "/api/placeholder/600/400",
-      technologies: ["Node.js", "Express", "PostgreSQL", "JWT", "Docker"],
-      links: [{ label: "Documentação", url: "#" }, { label: "Código GitHub", url: "#" }],
+      technologies: ["Node.js", "Express", "PostgreSQL", "Docker"],
+      links: [],
       details:
-        "API completa com documentação Swagger, testes automatizados, rate limiting, validação de dados e deploy containerizado.",
-      status: "Concluído",
+        "Este é um exemplo (placeholder) para demonstrar a aparência do portfólio. Vou substituir por projetos reais em breve.",
+      status: "Exemplo (layout)",
       year: "2022",
-    },
-    {
-      id: 4,
-      title: "Data Visualization Dashboard",
-      category: "frontend",
-      description:
-        "Dashboard interativo para visualização de dados com gráficos dinâmicos e filtros avançados.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Vue.js", "JavaScript", "Python", "PostgreSQL", "CSS"],
-      links: [{ label: "Ver Demo", url: "#" }, { label: "Código GitHub", url: "#" }],
-      details:
-        "Dashboard responsivo com múltiplos tipos de gráficos, exportação de relatórios, filtros dinâmicos e atualização em tempo real.",
-      status: "Concluído",
-      year: "2022",
-    },
-    {
-      id: 5,
-      title: "Mobile App - Fitness Tracker",
-      category: "mobile",
-      description:
-        "Aplicativo móvel para acompanhamento de exercícios com sincronização na nuvem.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Flutter", "Firebase", "GraphQL"],
-      links: [{ label: "Ver Demo", url: "#" }, { label: "Código GitHub", url: "#" }],
-      details:
-        "App móvel multiplataforma com tracking de exercícios, metas personalizadas, gráficos de progresso e integração com wearables.",
-      status: "Em Desenvolvimento",
-      year: "2024",
-    },
-    {
-      id: 6,
-      title: "Microservices Architecture",
-      category: "backend",
-      description:
-        "Arquitetura de microserviços para sistema de delivery com alta disponibilidade.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Node.js", "Docker", "AWS", "MongoDB", "GraphQL"],
-      links: [{ label: "Documentação", url: "#" }, { label: "Código GitHub", url: "#" }],
-      details:
-        "Sistema distribuído com API Gateway, service discovery, circuit breakers e monitoramento completo.",
-      status: "Concluído",
-      year: "2023",
-    },
-    {
-      id: 7,
-      title: "Roguelike Survivors (Prototype)",
-      category: "games",
-      description:
-        "Protótipo estilo Vampire Survivors com progressão, inimigos escaláveis e sistema de upgrades.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Unity", "C#"],
-      links: [{ label: "Ver Demo", url: "#" }, { label: "Código GitHub", url: "#" }],
-      details:
-        "Projeto de estudo focado em gameplay loop, spawn system, pooling, upgrades e balancing.",
-      status: "Em Desenvolvimento",
-      year: "2024",
+      isPlaceholder: true,
     },
   ];
 
@@ -156,6 +96,7 @@ const Projects = () => {
     { id: "games", label: "Games", icon: Gamepad2 },
   ];
 
+  // ✅ Normaliza repos do GitHub para o formato do card (e evita loop com useCallback)
   const handleGitHubProjectsUpdate = useCallback((repos) => {
     const mapped = (repos || []).map((repo) => {
       const lang = repo.language || "";
@@ -179,13 +120,14 @@ const Projects = () => {
         details: repo.description || "Repositório importado do GitHub.",
         status: "GitHub",
         year: repo.updated_at ? new Date(repo.updated_at).getFullYear().toString() : "",
+        isPlaceholder: false,
       };
     });
 
     setGithubProjects(mapped);
   }, []);
 
-  // Combina projetos estáticos e do GitHub
+  // Combina projetos (exemplo + GitHub)
   const allProjects = [...projects, ...githubProjects];
 
   const filteredProjects =
@@ -221,17 +163,51 @@ const Projects = () => {
     );
   };
 
+  const getStatusClass = (status) => {
+    if (status === "GitHub") {
+      return "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30";
+    }
+    if (status?.toLowerCase().includes("exemplo")) {
+      return "bg-gray-500/20 text-gray-200 border border-gray-500/30";
+    }
+    if (status === "Concluído") {
+      return "bg-green-500/20 text-green-400 border border-green-500/30";
+    }
+    return "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30";
+  };
+
+  const hasPlaceholdersShowing = filteredProjects.some((p) => p.isPlaceholder);
+  const hasRealProjects = allProjects.some((p) => !p.isPlaceholder);
+
   return (
     <section id="projetos" className="py-20 bg-white dark:bg-black">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
             Meus Projetos
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Uma seleção dos meus projetos mais relevantes, demonstrando diferentes
-            tecnologias e soluções criativas.
-          </p>
+
+          {/* ✅ Mensagem clara */}
+          <div className="max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              Uma seleção dos meus projetos mais relevantes, demonstrando diferentes
+              tecnologias e soluções criativas.
+            </p>
+
+            {/* banner de aviso */}
+            {(hasPlaceholdersShowing || !hasRealProjects) && (
+              <div
+                className="mt-5 text-sm text-gray-700 dark:text-gray-200 
+                           bg-gray-100 dark:bg-gray-900 border border-purple-500/30
+                           rounded-lg px-4 py-3"
+              >
+                <span className="mr-2">🚧</span>
+                <strong>Projetos reais em breve (em construção).</strong>{" "}
+                Os cards marcados como <strong>“Exemplo (layout)”</strong> são apenas
+                placeholders para mostrar a aparência do portfólio.
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Filter Tabs */}
@@ -256,6 +232,13 @@ const Projects = () => {
           })}
         </div>
 
+        {/* Empty state se não tiver nada real e filtro não bater */}
+        {filteredProjects.length === 0 && (
+          <div className="text-center text-gray-600 dark:text-gray-300 py-10">
+            Nenhum projeto encontrado para esse filtro.
+          </div>
+        )}
+
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => {
@@ -264,6 +247,10 @@ const Projects = () => {
             const image = project.image ?? "/api/placeholder/600/400";
             const status = project.status ?? "Em Desenvolvimento";
             const year = project.year ?? "";
+
+            const firstLink = links[0];
+            const canOpenExternal =
+              firstLink?.url && firstLink.url !== "#" && firstLink.url !== "";
 
             return (
               <TiltCard
@@ -286,11 +273,9 @@ const Projects = () => {
 
                     <div className="absolute top-3 right-3">
                       <span
-                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          status === "Concluído"
-                            ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                            : "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                        }`}
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusClass(
+                          status
+                        )}`}
                       >
                         {status}
                       </span>
@@ -353,12 +338,12 @@ const Projects = () => {
                         Ver Detalhes
                       </button>
 
-                      {links.length > 0 && links[0]?.url && (
+                      {canOpenExternal && (
                         <button
-                          onClick={() => window.open(links[0].url, "_blank")}
+                          onClick={() => window.open(firstLink.url, "_blank")}
                           className="p-2 border-2 border-purple-500 text-purple-500 
                                    rounded-lg hover:bg-purple-500/10 transition-colors duration-200"
-                          title={links[0]?.label || "Abrir link"}
+                          title={firstLink?.label || "Abrir link"}
                         >
                           <ExternalLink className="w-5 h-5" />
                         </button>
