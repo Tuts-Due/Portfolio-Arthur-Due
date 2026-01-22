@@ -2,7 +2,8 @@ import { useCallback, useState } from "react";
 import { Code, ExternalLink, Globe, Database, Smartphone, Gamepad2 } from "lucide-react";
 import Modal from "../Modal/Modal";
 import TiltCard from "../TiltCard/TiltCard";
-import GitHubIntegration from "../GitHubIntegration/GitHubIntegration";
+
+import GitHubProjects from "../GithubProjects/GithubProjects";
 
 const Projects = () => {
   const [modalContent, setModalContent] = useState(null);
@@ -358,7 +359,7 @@ const Projects = () => {
 
         {/* GitHub Integration */}
         <div className="mt-12">
-          <GitHubIntegration onProjectsUpdate={handleGitHubProjectsUpdate} />
+          <GitHubProjects onProjectsUpdate={handleGitHubProjectsUpdate} />
         </div>
       </div>
 
