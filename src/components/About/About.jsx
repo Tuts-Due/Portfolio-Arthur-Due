@@ -21,20 +21,20 @@ const About = () => {
   {
       title: 'Desenvolvedor Mobile React Native',
       company: 'Level 33',
-      period: '10/2025 - 01/2026',
+      period: '2025 - 2026',
       description:
         'Atuação no desenvolvimento e manutenção de aplicações mobile com React Native e Expo. Criação e ajuste de telas e fluxos, consumo e integração com APIs REST, formulários e validações com React Hook Form + Zod, melhorias de UX/UI, correção de bugs e ajustes de navegação. Colaboração em time ágil (sprints), seguindo boas práticas e versionamento com Git (GitHub).'
   },
   {
     title: 'Desenvolvedor Java Android',
     company: 'Capgemini Brasil',
-    period: '08/2022 - 08/2023',
+    period: '2022 - 2023',
     description: 'Atuação no desenvolvimento de aplicações Web e Mobile. Utilização de Java no backend, Angular no frontend e Android nativo para mobile, seguindo boas práticas de arquitetura e metodologias ágeis.'
   },
   {
     title: 'Atendente de Call Center',
     company: 'AlmavivA do Brasil',
-    period: '10/2018 - 05/2022',
+    period: '2018 - 2022',
     description: 'Atendimento ao cliente, com foco em soluções técnicas, financeiras e tratativas de cancelamento.'
   },
   {
