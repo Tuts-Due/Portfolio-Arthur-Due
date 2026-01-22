@@ -10,7 +10,7 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
 
   const { repositories, loading, error, refetch, mapToPortfolioProjects } = useGitHub(savedUsername);
 
-  // Carregar configurações salvas-
+  
   useEffect(() => {
     const saved = localStorage.getItem('github-config');
     if (saved) {
@@ -21,7 +21,7 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
     }
   }, []);
 
-  // Atualizar projetos quando repositórios selecionados mudarem
+
   useEffect(() => {
     if (selectedRepos.length > 0 && repositories.length > 0) {
       const selectedRepoData = repositories.filter(repo => 

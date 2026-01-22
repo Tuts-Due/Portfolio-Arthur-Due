@@ -1,51 +1,57 @@
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import ThemeToggle from '../ThemeToggle/ThemeToggle';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const menuItems = [
-    { id: 'sobre', label: 'Sobre' },
-    { id: 'projetos', label: 'Projetos' },
-    { id: 'certificados', label: 'Certificados' },
-    { id: 'contato', label: 'Contato' }
+    { id: "sobre", label: "Sobre" },
+    { id: "projetos", label: "Projetos" },
+    { id: "certificados", label: "Certificados" },
+    { id: "contato", label: "Contato" },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsMenuOpen(false);
+  };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (element) element.scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-black/90 dark:bg-black/90 backdrop-blur-md border-b border-purple-500/30' 
-        : 'bg-transparent'
-    }`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-black/90 dark:bg-black/90 backdrop-blur-md border-b border-purple-500/30"
+          : "bg-transparent"
+      }`}
+    >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo/Nome */}
-          <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          {/* Nome/Logo - volta ao topo */}
+          <button
+            onClick={scrollToTop}
+            className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"
+            title="Voltar ao topo"
+          >
             Portfólio
-          </div>
+          </button>
 
           {/* Menu Desktop */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-2">
             {menuItems.map((item) => (
               <button
                 key={item.id}
@@ -60,7 +66,7 @@ const Header = () => {
             <ThemeToggle />
           </div>
 
-          {/* Menu Mobile Button */}
+          {/* Menu Mobile */}
           <div className="md:hidden flex items-center space-x-4">
             <ThemeToggle />
             <Button
@@ -74,7 +80,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Menu Mobile */}
+        {/* Itens Mobile */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 py-4 bg-black/95 rounded-lg border border-purple-500/30 backdrop-blur-md">
             {menuItems.map((item) => (
@@ -94,4 +100,3 @@ const Header = () => {
 };
 
 export default Header;
-
