@@ -7,14 +7,14 @@ const GitHubProjects = ({ onProjectsUpdate }) => {
   const { repositories, loading, error, mapToPortfolioProjects } = useGitHub(GITHUB_USERNAME);
 
   const filteredRepos = useMemo(() => {
-    if (!repositories?.length) return [];
-    // mantém a ordem do FEATURED_REPOS
-    return FEATURED_REPOS
-      .map((name) => repositories.find((r) => r.name === name))
-      .filter(Boolean);
-  }, [repositories]);
+  if (!repositories?.length) return [];
 
-  // manda para o Projects atualizar automaticamente
+  return repositories
+    .filter(repo => !repo.fork) 
+    .sort((a, b) => b.stargazers_count - a.stargazers_count) 
+    .slice(0, 6); 
+}, [repositories]);
+
   useMemo(() => {
     if (filteredRepos.length > 0 && onProjectsUpdate) {
       onProjectsUpdate(mapToPortfolioProjects(filteredRepos));

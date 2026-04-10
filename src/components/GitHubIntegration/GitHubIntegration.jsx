@@ -216,7 +216,6 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
     );
   }
 
-  // Configured state
   return (
     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-8 border-2 border-purple-500/20">
       <div className="flex items-center justify-between mb-6">

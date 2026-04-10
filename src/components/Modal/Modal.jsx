@@ -29,7 +29,18 @@ const Modal = ({ isOpen, onClose, content }) => {
   const pdfLink =
     content?.links?.find((l) => (l?.url || "").toLowerCase().endsWith(".pdf"))?.url || null;
 
-  const primaryLink = content?.links?.[0]?.url;
+  const primaryLink = content?.links?.[0];
+
+  const getPrimaryButtonLabel = () => {
+  if (!primaryLink) return "Fechar";
+
+  if (content?.type === "certificate") return "Ver Certificado";
+  if (content?.type === "project" && primaryLink?.type === "github") return "Ver Repositório";
+  if (content?.type === "project" && primaryLink?.type === "deploy") return "Ver Deploy";
+  if (content?.type === "project" && primaryLink?.type === "apk") return "Ver APK";
+
+  return primaryLink?.label || "Abrir";
+};
 
   return (
     <div
@@ -41,7 +52,7 @@ const Modal = ({ isOpen, onClose, content }) => {
                    overflow-y-auto border-2 border-purple-500/30 relative animate-in 
                    fade-in-0 zoom-in-95 duration-300"
       >
-        {/* Close Button */}
+
         <Button
           onClick={onClose}
           variant="outline"
@@ -52,12 +63,12 @@ const Modal = ({ isOpen, onClose, content }) => {
           <X className="w-5 h-5" />
         </Button>
 
-        {/* Modal Content */}
+
         <div className="p-8">
           {/* Title */}
           <h2 className="text-3xl font-bold gradient-text mb-6 pr-12">{content.title}</h2>
 
-          {/* ✅ Preview (imagem ou PDF) */}
+
           {content.image ? (
             <div className="mb-6 rounded-lg overflow-hidden">
               <img
@@ -72,7 +83,7 @@ const Modal = ({ isOpen, onClose, content }) => {
             </div>
           ) : null}
 
-          {/* Description */}
+
           <div className="mb-6">
             <h3 className="text-xl font-semibold text-cyan-400 mb-3">Descrição</h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
@@ -80,7 +91,7 @@ const Modal = ({ isOpen, onClose, content }) => {
             </p>
           </div>
 
-          {/* Tags */}
+
           {content.tags && content.tags.length > 0 && (
             <div className="mb-6">
               <h3 className="text-xl font-semibold text-cyan-400 mb-3">Tecnologias</h3>
@@ -98,7 +109,7 @@ const Modal = ({ isOpen, onClose, content }) => {
             </div>
           )}
 
-          {/* Links */}
+
           {content.links && content.links.length > 0 && (
             <div className="mb-6">
               <h3 className="text-xl font-semibold text-cyan-400 mb-3">Links</h3>
@@ -117,7 +128,7 @@ const Modal = ({ isOpen, onClose, content }) => {
             </div>
           )}
 
-          {/* Additional Details */}
+
           {content.details && (
             <div className="mb-6">
               <h3 className="text-xl font-semibold text-cyan-400 mb-3">Detalhes Adicionais</h3>
@@ -127,7 +138,7 @@ const Modal = ({ isOpen, onClose, content }) => {
             </div>
           )}
 
-          {/* Action Buttons */}
+
           <div className="flex justify-end space-x-3 pt-4 border-t border-purple-500/20">
             <Button
               onClick={onClose}
@@ -136,16 +147,6 @@ const Modal = ({ isOpen, onClose, content }) => {
             >
               Fechar
             </Button>
-
-            {primaryLink && (
-              <Button
-                onClick={() => window.open(primaryLink, "_blank")}
-                className="btn-portfolio text-black font-semibold"
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Ver Certificado
-              </Button>
-            )}
           </div>
         </div>
       </div>

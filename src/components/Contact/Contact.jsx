@@ -116,7 +116,7 @@ const Contact = () => {
     phone: "",
     reason: "",
     description: "",
-    website: "", // honeypot
+    website: "",
   });
 
   const [errors, setErrors] = useState({});

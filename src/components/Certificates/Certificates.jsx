@@ -12,8 +12,6 @@ const Certificates = () => {
 
   const pdfUrl = (fileName) => encodeURI(`/certificados/${fileName}`);
 
-  // ✅ seus certificados reais (baseado nos PDFs que estão em public/certificados)
-  // category: "certificado" | "certificacao"
   const certificates = [
     {
       id: 1,

@@ -15,7 +15,6 @@ const ExpandableCard = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpanded = () => setIsExpanded((v) => !v);
 
-  // Pega o 1º link que seja PDF (ou que venha da pasta /certificados/)
   const pdfLink = useMemo(() => {
     const byPdf = links.find((l) => (l?.url || "").toLowerCase().endsWith(".pdf"));
     if (byPdf) return byPdf.url;
