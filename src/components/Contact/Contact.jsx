@@ -186,7 +186,7 @@ const Contact = () => {
       const data = await resp.json().catch(() => ({}));
 
       if (!resp.ok) {
-        throw new Error(data?.message || "Erro ao enviar");
+        throw new Error(data?.message || `Erro HTTP ${resp.status}`);
       }
 
       setSubmitStatus("success");
@@ -200,6 +200,7 @@ const Contact = () => {
         website: "",
       });
     } catch (error) {
+      console.error("Erro no envio do contato:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
