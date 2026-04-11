@@ -6,15 +6,16 @@ import TiltCard from "../TiltCard/TiltCard";
 
 const Certificates = () => {
   const [modalContent, setModalContent] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("todos");
+  const [techFilter, setTechFilter] = useState("todas");
 
   const pdfUrl = (fileName) => encodeURI(`/certificados/${fileName}`);
 
   const certificates = [
     {
       id: 1,
+      type: "certificate",
       category: "certificado",
       title: "C# Básico",
       institution: "Udemy",
@@ -28,6 +29,7 @@ const Certificates = () => {
     },
     {
       id: 2,
+      type: "certificate",
       category: "certificado",
       title: "Desenvolvimento de Aplicativos Android usando Java",
       institution: "Udemy",
@@ -46,6 +48,7 @@ const Certificates = () => {
     },
     {
       id: 3,
+      type: "certificate",
       category: "certificado",
       title: "Desenvolvimento de Aplicativos Android usando Kotlin",
       institution: "Udemy",
@@ -64,6 +67,7 @@ const Certificates = () => {
     },
     {
       id: 4,
+      type: "certificate",
       category: "certificado",
       title: "Docker",
       institution: "Udemy",
@@ -77,6 +81,7 @@ const Certificates = () => {
     },
     {
       id: 5,
+      type: "certificate",
       category: "certificado",
       title: "Gestão Ágil com Scrum",
       institution: "Udemy",
@@ -90,6 +95,7 @@ const Certificates = () => {
     },
     {
       id: 6,
+      type: "certificate",
       category: "certificado",
       title: "Git",
       institution: "Udemy",
@@ -103,6 +109,7 @@ const Certificates = () => {
     },
     {
       id: 7,
+      type: "certificate",
       category: "certificado",
       title: "Postman",
       institution: "Udemy",
@@ -116,6 +123,7 @@ const Certificates = () => {
     },
     {
       id: 8,
+      type: "certificate",
       category: "certificado",
       title: "Spring Boot Expert",
       institution: "Udemy",
@@ -129,6 +137,7 @@ const Certificates = () => {
     },
     {
       id: 9,
+      type: "certificate",
       category: "certificado",
       title: "UML",
       institution: "Udemy",
@@ -142,6 +151,7 @@ const Certificates = () => {
     },
     {
       id: 10,
+      type: "certificate",
       category: "certificado",
       title: "Figma",
       institution: "Udemy",
@@ -161,10 +171,22 @@ const Certificates = () => {
     { key: "certificacao", label: "Certificações" },
   ];
 
+  const availableTechnologies = useMemo(() => {
+    const allTags = certificates.flatMap((certificate) => certificate.tags || []);
+    return ["todas", ...Array.from(new Set(allTags)).sort((a, b) => a.localeCompare(b))];
+  }, [certificates]);
+
   const filteredCertificates = useMemo(() => {
-    if (activeTab === "todos") return certificates;
-    return certificates.filter((c) => c.category === activeTab);
-  }, [activeTab, certificates]);
+    return certificates.filter((certificate) => {
+      const tabMatch =
+        activeTab === "todos" || certificate.category === activeTab;
+
+      const techMatch =
+        techFilter === "todas" || (certificate.tags || []).includes(techFilter);
+
+      return tabMatch && techMatch;
+    });
+  }, [activeTab, techFilter, certificates]);
 
   const stats = useMemo(() => {
     const total = certificates.length;
@@ -195,7 +217,6 @@ const Certificates = () => {
           </p>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
             <Award className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
@@ -222,8 +243,7 @@ const Certificates = () => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
           {tabs.map((t) => (
             <button
               key={t.key}
@@ -239,7 +259,22 @@ const Certificates = () => {
           ))}
         </div>
 
-        {/* Certificates Grid */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          {availableTechnologies.map((tech) => (
+            <button
+              key={tech}
+              onClick={() => setTechFilter(tech)}
+              className={`px-4 py-2 rounded-full border transition ${
+                techFilter === tech
+                  ? "bg-gradient-to-r from-cyan-400 to-purple-500 text-black border-transparent font-semibold"
+                  : "border-white/10 text-gray-300 hover:text-white hover:border-white/20"
+              }`}
+            >
+              {tech === "todas" ? "Todas as tecnologias" : tech}
+            </button>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCertificates.map((certificate) => (
             <TiltCard
@@ -257,7 +292,6 @@ const Certificates = () => {
                 onOpenModal={() => openModal(certificate)}
               />
 
-              {/* Certificate Info */}
               <div className="mt-3 px-2">
                 <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                   <div className="flex items-center space-x-2">
@@ -274,19 +308,25 @@ const Certificates = () => {
           ))}
         </div>
 
-        {/* Call to Action */}
+        {filteredCertificates.length === 0 && (
+          <div className="text-center text-gray-600 dark:text-gray-300 py-10">
+            Nenhum certificado encontrado para esse filtro.
+          </div>
+        )}
+
         <div className="text-center mt-12">
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             Sempre em busca de novos conhecimentos e certificações
           </p>
           <div className="inline-flex items-center space-x-2 text-cyan-400">
             <Award className="w-5 h-5" />
-            <span className="font-semibold">Próxima meta: AWS Certified Cloud Practitioner (CLF-C02)</span>
+            <span className="font-semibold">
+              Próxima meta: AWS Certified Cloud Practitioner (CLF-C02)
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={closeModal} content={modalContent} />
     </section>
   );
