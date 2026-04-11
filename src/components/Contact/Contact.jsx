@@ -138,16 +138,19 @@ const Contact = () => {
     const newErrors = {};
 
     if (!formData.name.trim()) newErrors.name = "Nome é obrigatório";
-    if (!formData.personType) newErrors.personType = "Tipo de pessoa é obrigatório";
+    if (!formData.personType)
+      newErrors.personType = "Tipo de pessoa é obrigatório";
 
     if (!formData.email.trim()) newErrors.email = "E-mail é obrigatório";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       newErrors.email = "E-mail inválido";
 
-    if (!formData.phone.trim()) newErrors.phone = "Número para contato é obrigatório";
+    if (!formData.phone.trim())
+      newErrors.phone = "Número para contato é obrigatório";
     if (!formData.reason) newErrors.reason = "Motivo do contato é obrigatório";
 
-    if (!formData.description.trim()) newErrors.description = "Descrição é obrigatória";
+    if (!formData.description.trim())
+      newErrors.description = "Descrição é obrigatória";
     else if (formData.description.trim().length < 10)
       newErrors.description = "Descrição deve ter pelo menos 10 caracteres";
 
@@ -174,7 +177,7 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      const resp = await fetch("/api/contact", {
+      const resp = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -211,7 +214,8 @@ const Contact = () => {
             Entre em Contato
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Tem um projeto em mente? Vamos conversar sobre como posso ajudar a transformar suas ideias em realidade.
+            Tem um projeto em mente? Vamos conversar sobre como posso ajudar a
+            transformar suas ideias em realidade.
           </p>
         </div>
 
@@ -224,8 +228,9 @@ const Contact = () => {
                   Vamos trabalhar juntos!
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                  Estou aberto a novos projetos, oportunidades criativas e parcerias.
-                  Preencha o formulário ao lado e eu retorno o mais breve possível.
+                  Estou aberto a novos projetos, oportunidades criativas e
+                  parcerias. Preencha o formulário ao lado e eu retorno o mais
+                  breve possível.
                 </p>
               </div>
 
@@ -233,22 +238,32 @@ const Contact = () => {
                 <div className="flex items-center space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
                   <Mail className="w-6 h-6 text-cyan-400" />
                   <div>
-                    <h4 className="font-semibold text-gray-800 dark:text-white">E-mail</h4>
-                    <p className="text-gray-600 dark:text-gray-300">duetech.al@gmail.com</p>
+                    <h4 className="font-semibold text-gray-800 dark:text-white">
+                      E-mail
+                    </h4>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      duetech.al@gmail.com
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg border-2 border-purple-500/20">
                   <Phone className="w-6 h-6 text-purple-400" />
                   <div>
-                    <h4 className="font-semibold text-gray-800 dark:text-white">WhatsApp</h4>
-                    <p className="text-gray-600 dark:text-gray-300">+55 (82) 98775-8569</p>
+                    <h4 className="font-semibold text-gray-800 dark:text-white">
+                      WhatsApp
+                    </h4>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      +55 (82) 98775-8569
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div className="p-4 bg-cyan-400/10 border border-cyan-400/30 rounded-lg">
-                <h4 className="font-semibold text-cyan-400 mb-2">Tempo de Resposta</h4>
+                <h4 className="font-semibold text-cyan-400 mb-2">
+                  Tempo de Resposta
+                </h4>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   Normalmente respondo em até 24 horas durante dias úteis.
                 </p>

@@ -5,8 +5,6 @@ export const useGitHub = (username) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const token = import.meta.env.VITE_GITHUB_TOKEN;
-
   const fetchRepositories = async () => {
     if (!username) return;
 
@@ -17,10 +15,6 @@ export const useGitHub = (username) => {
       const headers = {
         Accept: "application/vnd.github+json",
       };
-
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      }
 
       const reposResponse = await fetch(
         `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
