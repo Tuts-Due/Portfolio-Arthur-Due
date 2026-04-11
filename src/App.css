@@ -119,14 +119,16 @@
   }
 }
 
-/* Estilos personalizados do portfólio */
 :root {
   --portfolio-cyan: #00FFFF;
   --portfolio-purple: #8A2BE2;
   --portfolio-black: #000000;
   --portfolio-white: #FFFFFF;
-  --portfolio-cyan-dark: #008B8B;
-  --portfolio-purple-dark: #4B0082;
+  --portfolio-cyan-dark: #0F4C5C;
+  --portfolio-purple-dark: #5B21B6;
+  --portfolio-navy: #0B1F3A;
+  --portfolio-title-light-start: #0B1F3A;
+  --portfolio-title-light-end: #2563EB;
 }
 
 .dark {
@@ -137,12 +139,11 @@
 
 :root:not(.dark) {
   --portfolio-bg: var(--portfolio-white);
-  --portfolio-text: var(--portfolio-black);
+  --portfolio-text: var(--portfolio-navy);
   --portfolio-accent: var(--portfolio-purple-dark);
   --portfolio-cyan: var(--portfolio-cyan-dark);
 }
 
-/* Animações personalizadas */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -161,7 +162,6 @@
   animation: glow 2s ease-in-out infinite;
 }
 
-/* Botões com hover avançado */
 .btn-portfolio {
   @apply relative overflow-hidden transition-all duration-300;
   background: linear-gradient(135deg, var(--portfolio-cyan) 0%, var(--portfolio-purple) 100%);
@@ -172,12 +172,10 @@
   box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
 }
 
-/* Efeito de inclinação do mouse */
 .tilt-hover {
   transition: transform 0.3s ease;
 }
 
-/* Cards expandíveis */
 .expandable-card {
   @apply transition-all duration-500 ease-in-out;
 }
@@ -186,7 +184,6 @@
   @apply scale-105;
 }
 
-/* Gradientes personalizados */
 .gradient-cyan-purple {
   background: linear-gradient(135deg, var(--portfolio-cyan) 0%, var(--portfolio-purple) 100%);
 }
@@ -198,14 +195,23 @@
   background-clip: text;
 }
 
-/* Seções com bordas personalizadas */
+:root:not(.dark) .gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-title-light-start) 0%,
+    var(--portfolio-title-light-end) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .section-border {
   @apply border-2;
   border-color: var(--portfolio-purple);
   background: var(--portfolio-bg);
 }
 
-/* Scrollbar personalizada */
 ::-webkit-scrollbar {
   width: 8px;
 }
