@@ -41,7 +41,7 @@ const Header = () => {
     >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Nome/Logo - volta ao topo */}
+          
           <button
             onClick={scrollToTop}
             className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"
@@ -50,7 +50,7 @@ const Header = () => {
             Portfólio
           </button>
 
-          {/* Menu Desktop */}
+          
           <div className="hidden md:flex items-center space-x-2">
             {menuItems.map((item) => (
               <button
@@ -66,7 +66,6 @@ const Header = () => {
             <ThemeToggle />
           </div>
 
-          {/* Menu Mobile */}
           <div className="md:hidden flex items-center space-x-4">
             <ThemeToggle />
             <Button
@@ -80,7 +79,6 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Itens Mobile */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 py-4 bg-black/95 rounded-lg border border-purple-500/30 backdrop-blur-md">
             {menuItems.map((item) => (

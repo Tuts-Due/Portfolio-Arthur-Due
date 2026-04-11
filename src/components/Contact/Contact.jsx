@@ -222,7 +222,7 @@ const Contact = () => {
 
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Info */}
+            
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-cyan-400 mb-6">
@@ -271,10 +271,10 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Contact Form */}
+
             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border-2 border-purple-500/20">
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Honeypot escondido */}
+                
                 <input
                   type="text"
                   name="website"

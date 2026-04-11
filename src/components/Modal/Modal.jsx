@@ -65,7 +65,7 @@ const Modal = ({ isOpen, onClose, content }) => {
 
 
         <div className="p-8">
-          {/* Title */}
+
           <h2 className="text-3xl font-bold gradient-text mb-6 pr-12">{content.title}</h2>
 
 

@@ -93,7 +93,7 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
         </div>
 
         <div className="space-y-6">
-          {/* Username Input */}
+          
           <div>
             <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Username do GitHub
@@ -129,7 +129,7 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
             </div>
           </div>
 
-          {/* Error Message */}
+          
           {error && (
             <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
               <p className="text-red-600 dark:text-red-400">
@@ -138,7 +138,7 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
             </div>
           )}
 
-          {/* Loading State */}
+          
           {loading && (
             <div className="text-center py-8">
               <Loader className="w-8 h-8 text-cyan-400 animate-spin mx-auto mb-2" />
@@ -148,7 +148,7 @@ const GitHubIntegration = ({ onProjectsUpdate }) => {
             </div>
           )}
 
-          {/* Repository Selection */}
+          
           {repositories.length > 0 && (
             <div>
               <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">

@@ -30,14 +30,12 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden bg-black flex items-center justify-center">
-      {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black" />
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 w-full px-4">
         <div
           className={`mx-auto max-w-4xl text-center transition-all duration-1000 ${
@@ -55,7 +53,6 @@ const Hero = () => {
               </span>
             </h1>
 
-            {/* Texto rotativo com altura fixa (não pula layout) */}
             <div className="min-h-[3.5rem] flex items-center justify-center">
               <p className="text-2xl md:text-3xl text-cyan-400 font-semibold transition-all duration-500">
                 {texts[currentText]}
@@ -67,7 +64,6 @@ const Hero = () => {
               soluções inovadoras que combinam design elegante com tecnologia de ponta.
             </p>
 
-            {/* Action Buttons */}
             <div className="mt-2 flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 onClick={() => scrollToSection("projetos")}
@@ -85,7 +81,6 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Skills Icons */}
             <div className="mt-6 flex justify-center gap-8">
               <div className="flex flex-col items-center group">
                 <div className="p-4 bg-gradient-to-br from-cyan-400/20 to-purple-500/20 rounded-full mb-2 group-hover:scale-110 transition-transform duration-300">
@@ -112,7 +107,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator (no viewport, não “no bloco”) */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
         <button
           onClick={() => scrollToSection("sobre")}

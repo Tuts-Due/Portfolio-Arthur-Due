@@ -82,7 +82,7 @@ const About = () => {
         </div>
 
         <div className="max-w-6xl mx-auto">
-          {/* Tabs Navigation */}
+          
           <div className="flex flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900 rounded-lg p-2">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -104,7 +104,7 @@ const About = () => {
             })}
           </div>
 
-          {/* Tab Content */}
+          
           <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-8 border-2 border-purple-500/20">
             {activeTab === 'sobre' && (
               <div className="space-y-6">
@@ -134,7 +134,7 @@ const About = () => {
                       ))}
                     </div>
                     
-                    {/* Botão de Download do Currículo */}
+                    
                     <div className="mt-6">
                       <a
                         href="/CV-ArthurAmorimDué.pdf"

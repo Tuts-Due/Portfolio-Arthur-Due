@@ -29,13 +29,13 @@ const ExpandableCard = ({
                    border-purple-500/20 hover:border-purple-500/40 transition-all duration-500 
                    ${isExpanded ? "expanded" : ""}`}
     >
-      {/* Card Header */}
+      
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <h3 className="text-xl font-bold text-gray-800 dark:text-white">{title}</h3>
 
           <div className="flex space-x-2">
-            {/* Modal Button */}
+            
             {onOpenModal && (
               <Button
                 onClick={() => onOpenModal({ title, description, image, tags, links, type })}
@@ -47,7 +47,7 @@ const ExpandableCard = ({
               </Button>
             )}
 
-            {/* External Links */}
+            
             {links.map((link, index) => (
               <Button
                 key={index}
@@ -61,7 +61,7 @@ const ExpandableCard = ({
               </Button>
             ))}
 
-            {/* Expand Button */}
+            
             <Button
               onClick={toggleExpanded}
               variant="outline"
@@ -73,7 +73,7 @@ const ExpandableCard = ({
           </div>
         </div>
 
-        {/* ✅ Preview (imagem ou thumbnail do PDF) */}
+        
         <div className="mb-4">
           {image ? (
             <div className="rounded-lg overflow-hidden">
@@ -95,10 +95,10 @@ const ExpandableCard = ({
           )}
         </div>
 
-        {/* Short Description */}
+        
         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{description}</p>
 
-        {/* Tags */}
+        
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {tags.slice(0, isExpanded ? tags.length : 3).map((tag, index) => (
@@ -117,7 +117,7 @@ const ExpandableCard = ({
         )}
       </div>
 
-      {/* Expanded Content */}
+      
       <div
         className={`overflow-hidden transition-all duration-500 ease-in-out ${
           isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
@@ -144,7 +144,7 @@ const ExpandableCard = ({
               </div>
             )}
 
-            {/* Links Section */}
+            
             {links.length > 0 && (
               <div className="mt-4">
                 <h5 className="text-sm font-semibold text-purple-400 mb-2">Links:</h5>
