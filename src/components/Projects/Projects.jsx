@@ -258,7 +258,7 @@ const Projects = () => {
               ? [
                   {
                     type: "deploy",
-                    label: "Ver Deploy",
+                    label: "Ver Projeto",
                     url: repo.homepage,
                   },
                 ]

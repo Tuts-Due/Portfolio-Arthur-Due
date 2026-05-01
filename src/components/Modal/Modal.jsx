@@ -36,7 +36,7 @@ const Modal = ({ isOpen, onClose, content }) => {
 
   if (content?.type === "certificate") return "Ver Certificado";
   if (content?.type === "project" && primaryLink?.type === "github") return "Ver Repositório";
-  if (content?.type === "project" && primaryLink?.type === "deploy") return "Ver Deploy";
+  if (content?.type === "project" && primaryLink?.type === "deploy") return "Ver Projeto";
   if (content?.type === "project" && primaryLink?.type === "apk") return "Ver APK";
 
   return primaryLink?.label || "Abrir";
