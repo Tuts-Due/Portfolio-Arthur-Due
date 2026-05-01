@@ -158,6 +158,7 @@ const Footer = () => {
             <div className="flex items-center space-x-4 text-sm text-cyan-300">
               <span>Desenvolvido com:</span>
               <div className="flex items-center space-x-2">
+                <span className="text-white font-semibold">Front-end:</span>
                 <span className="px-2 py-1 bg-black/30 rounded text-xs">
                   React
                 </span>
@@ -166,6 +167,15 @@ const Footer = () => {
                 </span>
                 <span className="px-2 py-1 bg-black/30 rounded text-xs">
                   Vite
+                </span>
+              </div>
+              <div className="flex items-center space-x-2 mt-2 md:mt-0">
+                <span className="text-white font-semibold">Back-end:</span>
+                <span className="px-2 py-1 bg-black/30 rounded text-xs">
+                  Kotlin
+                </span>
+                <span className="px-2 py-1 bg-black/30 rounded text-xs">
+                  Spring Boot
                 </span>
               </div>
             </div>
@@ -183,7 +193,6 @@ const Footer = () => {
           </div>
         </div>
 
-        
         <div className="pb-4">
           <div className="text-center">
             <p className="text-xs text-cyan-300/70">
@@ -194,7 +203,6 @@ const Footer = () => {
         </div>
       </div>
 
-     
       <button
         onClick={scrollToTop}
         className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-cyan-400 to-purple-500 
