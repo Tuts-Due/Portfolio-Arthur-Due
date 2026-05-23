@@ -464,7 +464,7 @@ const Projects = () => {
 
                             {project.hasDeploy && (
                               <span className="px-2 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-300 border border-green-500/30">
-                                Deploy
+                                Deployed
                               </span>
                             )}
                           </div>
