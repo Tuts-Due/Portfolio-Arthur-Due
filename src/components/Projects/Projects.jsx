@@ -12,6 +12,31 @@ import TiltCard from "../TiltCard/TiltCard";
 import { useGitHub } from "../../hooks/useGitHub";
 import { GITHUB_USERNAME } from "../../config/github";
 
+const PRIVATE_PROJECTS = [
+  {
+    id: "private-prototype-quest",
+    type: "project",
+    title: "Prototype Quest",
+    category: "fullstack",
+    description:
+      "Plataforma web de estudos com autenticação, catálogo, conteúdo offline e acompanhamento de progresso.",
+    technologies: ["React", "TypeScript", "Vite", "Supabase"],
+    hasDeploy: true,
+    links: [
+      {
+        type: "deploy",
+        label: "Ver Projeto",
+        url: "https://prototype-quest.vercel.app/",
+      },
+    ],
+    details:
+      "Versão web do Prototype Quest construída com React, Vite e TypeScript. O código-fonte é privado; esta apresentação disponibiliza somente a aplicação publicada.",
+    status: "Código privado",
+    year: "2026",
+    updatedAt: "2026-10-12T00:00:00.000Z",
+  },
+];
+
 const Projects = () => {
   const [modalContent, setModalContent] = useState(null);
   const [filter, setFilter] = useState("todos");
@@ -147,9 +172,7 @@ const Projects = () => {
   };
 
   const projects = useMemo(() => {
-    if (!repositories?.length) return [];
-
-    return repositories
+    const githubProjects = (repositories || [])
       .filter((repo) => !repo.fork)
       .map((repo) => {
         const detectedTechnologies = detectTechnologies(repo);
@@ -274,6 +297,8 @@ const Projects = () => {
           updatedAt: repo.updated_at,
         };
       });
+
+    return [...PRIVATE_PROJECTS, ...githubProjects];
   }, [repositories]);
 
   const availableTechnologies = useMemo(() => {
@@ -335,7 +360,7 @@ const Projects = () => {
 
           <div className="max-w-3xl mx-auto">
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              Repositórios públicos importados automaticamente do meu GitHub.
+              Projetos selecionados e repositórios públicos importados do meu GitHub.
             </p>
           </div>
         </div>
@@ -423,13 +448,13 @@ const Projects = () => {
               </div>
             )}
 
-            {!loading && !error && filteredProjects.length === 0 && (
+            {!loading && filteredProjects.length === 0 && (
               <div className="text-center text-gray-600 dark:text-gray-300 py-10">
-                Nenhum repositório público encontrado para esse filtro.
+                Nenhum projeto encontrado para esse filtro.
               </div>
             )}
 
-            {!loading && !error && filteredProjects.length > 0 && (
+            {filteredProjects.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {filteredProjects.map((project) => {
                   const technologies = project.technologies ?? [];
